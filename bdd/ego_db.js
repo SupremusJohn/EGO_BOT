@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { Pool } = require("pg");
 
-const dbUrl = "postgresql://srpndb_5xe5_user:hTuiPHg8StFNhIWEEI5QxX1qemnCN79y@dpg-d11g4ku3jp1c73ev7e9g-a.oregon-postgres.render.com/srpndb_5xe5";
+const dbUrl = "postgresql://supremusprod:82n9RWp6c5rxUbvACyX9q7EqNOzu2tAc@dpg-d1i6ftqdbo4c738812dg-a.oregon-postgres.render.com/egodb";
 const proConfig = {
     connectionString: dbUrl,
     ssl: { rejectUnauthorized: false },
