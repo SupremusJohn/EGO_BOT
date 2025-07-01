@@ -100,7 +100,8 @@ zokou(
 ┃ #rules
 ┃ #pave
 ┃ #verdict
-┃ # *Version* : 3.1.0
+┃ #fiche
+┃ #(playerName)
 ┗━━━━━━━━━━━━━━━━━◇`;
         await envoyerImage(dest, zk, ms, lien, msg);
     }
@@ -170,5 +171,57 @@ _RANG *SUL🏅*: 23ème_
 *_▢▩▢▩▢▩▢▩▢▩▢▩▢▩▢▩▢▩▢▩▢▩_*`;
             repondre(msg);
         }
+    }
+);
+
+
+const shinobi_cards = require('../commandes/shinobi_cards');
+
+/**
+ * Tire une carte aléatoire selon une probabilité de grade, puis une carte dans ce grade.
+ */
+async function tirageCarte(dest, zk, ms) {
+    // Définir les probabilités des rangs
+    const probabilites = {
+        C: 50,
+        B: 30,
+        A: 15,
+        S: 5
+    };
+
+    // Création d’une liste pondérée
+    const pool = [];
+    for (const [rang, proba] of Object.entries(probabilites)) {
+        for (let i = 0; i < proba; i++) pool.push(rang);
+    }
+
+    // Choix du rang
+    const rangTire = pool[Math.floor(Math.random() * pool.length)];
+
+    // Choix d’une image aléatoire dans ce rang
+    const cartes = shinobi_cards[rangTire];
+    if (!cartes || cartes.length === 0) {
+        await zk.sendMessage(dest, { text: `❌ Aucune carte disponible pour le rang ${rangTire}` }, { quoted: ms });
+        return;
+    }
+
+    const imageChoisie = cartes[Math.floor(Math.random() * cartes.length)];
+
+    // Envoi du message avec image
+    await zk.sendMessage(dest, {
+        image: { url: imageChoisie },
+        caption: `🎉 *Félicitations !* Tu as tiré une carte de rang *${rangTire}* !`
+    }, { quoted: ms });
+}
+
+// Commande -tirage
+zokou(
+    {
+        nomCom: 'tirage',
+        categorie: 'EGO_BOT'
+    },
+    async (dest, zk, commandeOptions) => {
+        const { ms } = commandeOptions;
+        await tirageCarte(dest, zk, ms);
     }
 );
