@@ -45,21 +45,21 @@ function createPlayerCommand(playerName) {
                     }
 
                 } else {
-                    const baseMsg = `🔃 Aucune fiche trouvée pour ce joueur. Pour l'enregistrer, entrez après la commande votre message et votre lien d'image ou vidéo dans ce format : -${playerName} Message;Lien\n⚠️ Attention aux infos que vous tapez.`;
-                    superUser ? repondre(baseMsg) : repondre("🛃 Aucune fiche trouvée pour ce joueur.");
+                    const baseMsg = `🔃 Aucune fiche trouvée pour ce joueur. Pour l'enregistrer, entrez après la commande votre message et votre lien d'image ou vidéo dans ce format : -${playerName} Message;Lien\n*⚠️ Attention aux infos que vous tapez.*`;
+                    superUser ? repondre(baseMsg) : repondre("*🛃 Aucune fiche trouvée pour ce joueur.*");
                 }
 
             } else {
                 // Mise à jour des données
-                if (!superUser) return repondre("🛂 Réservé aux membres de la *DRPS*");
+                if (!superUser) return repondre("*⚠️ Vous n'êtes pas autorisé à exécuter cette commande.*");
 
                 const [texte, tlien] = arg.join(' ').split(';');
 
                 if (texte && tlien) {
                     await addOrUpdateDataInPlayer(playerName, texte.trim(), tlien.trim());
-                    repondre('✔️ Données actualisées avec succès');
+                    repondre('*✔️ Données actualisées avec succès*');
                 } else {
-                    repondre(`❌ Format incorrect. Veuillez utiliser : -${playerName} Message;Lien`);
+                    repondre(`*❌ Format incorrect. Veuillez utiliser :* -${playerName} Message;Lien`);
                 }
             }
 
@@ -71,7 +71,7 @@ function createPlayerCommand(playerName) {
 }
 
 // ➤ Création de commandes dynamiques (ajoute autant de joueurs que tu veux ici)
-['player1', 'player2'].forEach(player => createPlayerCommand(player));
+['gilgamesh', 'inferno', 'loki', 'aqua'].forEach(player => createPlayerCommand(player));
 
 // ➤ Commande des règles Shinobi Storm
 zokou(
