@@ -10,7 +10,7 @@
 //
 // ============================================================
 
-const { zokou } = require('../framework/zokou');
+/*const { zokou } = require('../framework/zokou');
 const { addOrUpdateDataInPlayer, getDataFromPlayer } = require('../bdd/ego_db');
 
 // ➤ Utilitaire pour envoyer une image avec légende
@@ -224,4 +224,4 @@ zokou(
         const { ms } = commandeOptions;
         await tirageCarte(dest, zk, ms);
     }
-);
+);*/
